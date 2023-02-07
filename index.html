@@ -1,0 +1,138 @@
+<html>
+    <style>
+       .opcao img,
+        .inimigo-opcao img
+        {
+            max-width: 200px;
+            opacity: 0.4;
+            cursor: pointer;
+        }
+
+        .opcao,.inimigo-opcao{
+            width: 50%;
+        }
+      
+        .align{
+            display: flex;
+           
+        }
+      
+    </style>
+     <h1 style="text-align: center;">Pedra,papel e tesoura</h1>
+     <h2 class="ganhou"></h2>
+     <hr>
+    <body>
+         
+    
+        <div class="align">
+            <div class="opcao">
+                <div><img opt="papel"src="papel.png"></div>
+                <div><img opt="pedra"src="pedra.png" ></div>
+                <div><img opt="tesoura"src="tesoura.png" ></div>
+           </div>
+           <div class="inimigo-opcao">
+                <div><img opt="papel" src="papel.png"></div>
+                <div><img  opt="pedra"src="pedra.png" ></div>
+                <div><img opt="tesoura"src="tesoura.png" ></div>
+           </div>
+        </div>
+        <script>
+            var elementos = document.querySelectorAll(".opcao div > img");
+            var playopt ="";
+            var inimigoOpt ="";
+            var  inimigoOpcao = document.querySelectorAll(".inimigo-opcao div");
+
+
+            function vitoria(){
+                let ganhou = document.querySelector(".ganhou");
+
+                if(playopt=="papel"){
+                    if( inimigoOpt == "papel"){
+                      ganhou.innerHTML = "empate";
+
+                    } else if(inimigoOpt=="pedra"){
+                        ganhou.innerHTML="O player ganhou";
+
+                    } else if(inimigoOpt =="tesoura"){
+                        ganhou.innerHTML= "O inimigo ganhou";
+                    }
+                   alert(playopt);
+                   // alert(inimigoOpt);
+                }
+
+                if(playopt=="pedra"){
+                 
+                    if( inimigoOpt == "papel"){
+                        ganhou.innerHTML="O inimigo ganhou";
+
+                    } else if(inimigoOpt == "pedra"){
+                        ganhou.innerHTML="empate";
+
+                    } else if(inimigoOpt == "tesoura"){
+                        ganhou.innerHTML="O player ganhou";
+                    }
+                    alert(playopt);
+                }
+
+                if(playopt =="tesoura"){
+                    if( inimigoOpt =="papel"){
+                        ganhou.innerHTML="O player ganhou";
+
+                    } else if(inimigoOpt =="pedra"){
+                        ganhou.innerHTML="O inimigo ganhou";
+
+                    } else if(inimigoOpt =="tesoura"){
+                        ganhou.innerHTML="empate";
+                    }
+                    alert(playopt);
+                }
+                
+                
+               
+            }
+            function reseteInimigo(){
+                for(var i = 0; i< inimigoOpcao.length;i++){
+                  
+                    inimigoOpcao[i].childNodes[0].style.opacity = 0.3;
+                }
+            }
+            function inimigoJogar(){
+                var rand =  Math.floor(Math.random()*3);
+                var  inimigoOpcao = document.querySelectorAll(".inimigo-opcao div");
+                reseteInimigo();
+            
+                for(var i =0; i< inimigoOpcao.length;i++){
+                    if( i== rand){
+                        inimigoOpcao[i].childNodes[0].style.opacity =1;
+                        inimigoOpt = inimigoOpcao[i].childNodes[0].getAttribute("opt");
+                    }
+                }
+
+
+                vitoria();
+                
+            }
+
+            function reseteOpacity(){
+                for( var i= 0; i < elementos.length; i++){
+                   elementos[i].style.opacity = 0.4;
+                }
+           }
+            
+       
+           for( var i= 0; i < elementos.length; i++){
+                elementos[i].addEventListener('click',function(t){
+                    reseteOpacity();
+                    t.target.style.opacity =1;
+                    playopt = t.target.getAttribute("opt");
+                    
+                    inimigoJogar();
+
+                   // alert(playopt);
+                   
+                });
+           }
+          
+        </script>
+    </body>
+</html>
